@@ -116,7 +116,11 @@
     self.transitionCustomization  = self.galleryViewController.transitionCustomization;
     
     if (!self.UICustomization.showOverView) {
+        
         self.navigationItem.hidesBackButton = YES;
+        
+        [self setButtonBack];
+        
     }else{
         if (self.galleryViewController.UICustomization.backButtonState == MHBackButtonStateWithoutBackArrow) {
             UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
@@ -255,8 +259,6 @@
     [(UIGestureRecognizer*)[[self.pageViewController.view.subviews[0] gestureRecognizers] firstObject] setDelegate:self];
     
     [self updateTitleForIndex:self.pageIndex];
-    
-    [self setButtonBack];
 }
 
 - (void)setButtonBack {
