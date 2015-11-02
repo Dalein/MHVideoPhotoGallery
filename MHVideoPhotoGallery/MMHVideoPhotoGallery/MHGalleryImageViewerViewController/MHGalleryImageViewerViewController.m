@@ -477,27 +477,24 @@
 -(void)updateTitleForIndex:(NSInteger)pageIndex{
     
     if (self.navigationBarTitle.length) {
-        UILabel *label =[[UILabel alloc] initWithFrame:CGRectZero];
         
-        [label setAdjustsFontSizeToFitWidth:YES];
-        [label setMinimumScaleFactor:0.80];
-        [label setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17]];
-        [label setTextColor:[UIColor whiteColor]];
-        [label setBackgroundColor:[UIColor clearColor]];
-        [label setTextAlignment:NSTextAlignmentCenter];
-        [label setText:self.navigationBarTitle];
-        [label sizeToFit];
-        
-        self.navigationItem.titleView = label;
-        [self.navigationItem.titleView sizeToFit];
+        [self setTitleForNavigationBar:self.navigationBarTitle];
         
         return;
     }
     
     NSString *localizedString  = MHGalleryLocalizedString(@"imagedetail.title.current");
-    self.navigationItem.title = [NSString stringWithFormat:localizedString,@(pageIndex+1),@(self.numberOfGalleryItems)];
+    [self setTitleForNavigationBar:[NSString stringWithFormat:localizedString,@(pageIndex+1),@(self.numberOfGalleryItems)]];
 }
 
+- (void)setTitleForNavigationBar:(NSString *)title {
+    self.navigationController.navigationBar.titleTextAttributes = [self attributesForText];
+    self.navigationItem.title = title;
+}
+
+- (NSDictionary *)attributesForText {
+    return [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17], NSFontAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+}
 
 -(void)pageViewController:(UIPageViewController *)pageViewController
        didFinishAnimating:(BOOL)finished
