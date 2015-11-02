@@ -486,7 +486,7 @@
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextAlignment:NSTextAlignmentCenter];
         [label setText:self.navigationBarTitle];
-        //[label sizeToFit];
+        [label sizeToFit];
         
         self.navigationItem.titleView = label;
         [self.navigationItem.titleView sizeToFit];
