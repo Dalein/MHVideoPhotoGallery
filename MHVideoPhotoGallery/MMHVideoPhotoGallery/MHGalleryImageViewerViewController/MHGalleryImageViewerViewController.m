@@ -179,6 +179,11 @@
         make.left.mas_equalTo(self.view.mas_left);
         make.right.mas_equalTo(self.view.mas_right);
         make.bottom.mas_equalTo(self.view.mas_bottom);
+        
+        if (!self.showBottomBar) {
+            self.toolbar.hidden = YES;
+            make.height.mas_equalTo(0);
+        }
     }];
 
     self.descriptionLabel = MHScrollViewLabel.new;
@@ -230,8 +235,9 @@
         self.shareBarButton.width = 30;
     }
     
-    [self updateToolBarForItem:item];
-    
+    if (!self.showBottomBar) {
+        [self updateToolBarForItem:item];
+    }
     
     self.titleView = [UITextView.alloc initWithFrame:CGRectZero];
     [self configureTextView:self.titleView];
