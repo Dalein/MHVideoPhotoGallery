@@ -235,7 +235,7 @@
         self.shareBarButton.width = 30;
     }
     
-    if (!self.showBottomBar) {
+    if (self.showBottomBar) {
         [self updateToolBarForItem:item];
     }
     
