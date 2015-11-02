@@ -15,6 +15,8 @@
 #import "MHGradientView.h"
 #import "MHBarButtonItem.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 @implementation MHPinchGestureRecognizer
 @end
 
@@ -253,6 +255,26 @@
     [(UIGestureRecognizer*)[[self.pageViewController.view.subviews[0] gestureRecognizers] firstObject] setDelegate:self];
     
     [self updateTitleForIndex:self.pageIndex];
+    
+    [self setButtonBack];
+}
+
+- (void)setButtonBack {
+    UIButton *button = [[UIButton alloc] init];
+    
+    [button setTitle:@"" forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"button_back"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(donePressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+        [button setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+    }
+    
+    [button.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
+    
+    [button sizeToFit];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
 -(void)setBarButtonItems{

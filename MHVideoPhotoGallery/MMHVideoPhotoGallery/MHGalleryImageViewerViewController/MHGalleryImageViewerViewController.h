@@ -36,7 +36,7 @@
 @property (nonatomic, strong)          MHTransitionCustomization *transitionCustomization;
 @property (nonatomic,strong)           MHUICustomization *UICustomization;
 @property (nonatomic,strong)           NSString *navigationBarTitle;
-@property (nonatomic, assign)          BOOL showBottomBar;
+@property (nonatomic, assign)          BOOL showBottomBar; //default NO
 
 @property (nonatomic,getter = isUserScrolling)                   BOOL userScrolls;
 @property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
