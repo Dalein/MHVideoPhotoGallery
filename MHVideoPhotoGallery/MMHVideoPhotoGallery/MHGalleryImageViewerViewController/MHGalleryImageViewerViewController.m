@@ -237,9 +237,7 @@
         self.shareBarButton.width = 30;
     }
     
-    if (self.showBottomBar) {
-        [self updateToolBarForItem:item];
-    }
+    [self updateToolBarForItem:item];
     
     self.titleView = [UITextView.alloc initWithFrame:CGRectZero];
     [self configureTextView:self.titleView];
@@ -534,33 +532,34 @@
     }
 }
 
--(void)updateToolBarForItem:(MHGalleryItem*)item{
-    
-    MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                        target:self
-                                                                        action:nil];
-    flex.type = MHBarButtonItemTypeFlexible;
-
-    
-    MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                         target:self
-                                                                         action:nil];
-    fixed.width = 30;
-    fixed.type = MHBarButtonItemTypeFixed;
-    
-    [self enableOrDisbaleBarbButtons];
-    
-    
-    if (item.galleryType == MHGalleryTypeVideo) {
-        MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
-        if (imageViewController.isPlayingVideo) {
-            [self changeToPauseButton];
+- (void)updateToolBarForItem:(MHGalleryItem *)item {
+    if (self.showBottomBar) {
+        MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                            target:self
+                                                                            action:nil];
+        flex.type = MHBarButtonItemTypeFlexible;
+        
+        
+        MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                             target:self
+                                                                             action:nil];
+        fixed.width = 30;
+        fixed.type = MHBarButtonItemTypeFixed;
+        
+        [self enableOrDisbaleBarbButtons];
+        
+        
+        if (item.galleryType == MHGalleryTypeVideo) {
+            MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
+            if (imageViewController.isPlayingVideo) {
+                [self changeToPauseButton];
+            }else{
+                [self changeToPlayButton];
+            }
+            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
         }else{
-            [self changeToPlayButton];
+            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
         }
-        [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
-    }else{
-        [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
     }
 }
 
