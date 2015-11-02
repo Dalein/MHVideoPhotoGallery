@@ -483,19 +483,12 @@
 }
 
 - (void)setTitleForNavigationBar:(NSString *)title {
-    UILabel *label =[[UILabel alloc] initWithFrame:CGRectZero];
-    
-    [label setAdjustsFontSizeToFitWidth:YES];
-    [label setMinimumScaleFactor:0.80];
-    [label setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17]];
-    [label setTextColor:[UIColor whiteColor]];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [label setText:title];
-    [label sizeToFit];
-    
-    self.navigationItem.titleView = label;
-    [self.navigationItem.titleView sizeToFit];
+    self.navigationController.navigationBar.titleTextAttributes = [self attributesForText];
+    self.navigationItem.title = title;
+}
+
+- (NSDictionary *)attributesForText {
+    return [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17], NSFontAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil];
 }
 
 -(MHGalleryController*)gallerViewController{
