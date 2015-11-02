@@ -130,11 +130,9 @@
         }
     }
     
-    UIBarButtonItem *doneBarButton =  [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                  target:self
-                                                                                  action:@selector(donePressed)];
-    
-    self.navigationItem.rightBarButtonItem = doneBarButton;
+    if (self.showRightBarButtonShare) {
+        [self setButtonShare];
+    }
     
     self.view.backgroundColor = [self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
     
@@ -271,6 +269,17 @@
     [button sizeToFit];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)setButtonShare {
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    
+    [button setImage:[UIImage imageNamed:@"icon_share"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"icon_share-selected"] forState:UIControlStateSelected];
+    [button setImage:[UIImage imageNamed:@"icon_share-selected"] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(sharePressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
 -(void)setBarButtonItems{
