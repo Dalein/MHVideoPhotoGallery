@@ -20,4 +20,7 @@
 @property (nonatomic,assign)    BOOL finishButtonAction;
 
 @property (nonatomic,assign)    id <UIViewControllerContextTransitioning> context;
+
+@property (nonatomic, copy) void (^dismissViewController)();
+
 @end
