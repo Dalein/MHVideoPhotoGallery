@@ -319,9 +319,6 @@
             
             self.backView.alpha = 0;
         } completion:^(BOOL finished) {
-            
-            [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
-            
             self.transitionImageView.hidden = NO;
             [self.cellImageSnapshot removeFromSuperview];
             [self.backView removeFromSuperview];
@@ -409,7 +406,7 @@
 
 
 -(void)doOrientationwithFromViewController:(UINavigationController*)fromViewController{
-    
+    /*
     if (MHGalleryOSVersion < 8.0) {
         fromViewController.view.transform = CGAffineTransformMakeRotation(self.startTransform);
         fromViewController.view.center = UIApplication.sharedApplication.keyWindow.center;
@@ -434,7 +431,9 @@
                 fromViewController.navigationBar.frame = CGRectMake(0, 0, fromViewController.navigationBar.frame.size.width, 52);
             }
         }
-    }
+    }*/
+    
+    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
 }
 
 
