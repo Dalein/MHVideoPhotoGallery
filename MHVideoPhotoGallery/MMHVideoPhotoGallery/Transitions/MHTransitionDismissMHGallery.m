@@ -334,6 +334,8 @@
     [super cancelInteractiveTransition];
     
     [UIView animateWithDuration:0.3 animations:^{
+        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+        
         if (self.moviePlayer) {
             if (self.toTransform != self.orientationTransformBeforeDismiss) {
                 self.moviePlayer.view.center = CGPointMake(self.moviePlayer.view.bounds.size.height/2, self.moviePlayer.view.center.y);
@@ -406,7 +408,6 @@
 
 
 -(void)doOrientationwithFromViewController:(UINavigationController*)fromViewController{
-    /*
     if (MHGalleryOSVersion < 8.0) {
         fromViewController.view.transform = CGAffineTransformMakeRotation(self.startTransform);
         fromViewController.view.center = UIApplication.sharedApplication.keyWindow.center;
@@ -431,9 +432,7 @@
                 fromViewController.navigationBar.frame = CGRectMake(0, 0, fromViewController.navigationBar.frame.size.width, 52);
             }
         }
-    }*/
-    
-    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+    }
 }
 
 
