@@ -251,6 +251,7 @@
 }
 
 -(void)cancelPressed{
+    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
