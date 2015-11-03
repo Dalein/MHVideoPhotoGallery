@@ -255,10 +255,6 @@
             self.cellImageSnapshot.frame = CGRectMake(self.cellImageSnapshot.frame.origin.x-self.changedPoint.x, self.cellImageSnapshot.frame.origin.y-self.changedPoint.y, self.cellImageSnapshot.frame.size.width, self.cellImageSnapshot.frame.size.height);
         }
     }
-    
-    if (_dismissViewController) {
-        _dismissViewController();
-    }
 }
 
 -(void)finishInteractiveTransition{
