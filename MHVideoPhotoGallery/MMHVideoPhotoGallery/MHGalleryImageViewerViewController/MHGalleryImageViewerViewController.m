@@ -377,6 +377,17 @@
 }
 
 -(void)sharePressed{
+    
+    if (self.showRightBarButtonShare && _shareContent) {
+        
+        MHGalleryItem *item = [self itemForIndex:self.pageIndex];
+        MHImageViewController *controller = [MHImageViewController imageViewControllerForMHMediaItem:item viewController:self];
+        
+        _shareContent(controller.imageView.image, item.descriptionString);
+        
+        return;
+    }
+    
     if (self.UICustomization.showMHShareViewInsteadOfActivityViewController) {
         MHShareViewController *share = [MHShareViewController new];
         share.pageIndex = self.pageIndex;

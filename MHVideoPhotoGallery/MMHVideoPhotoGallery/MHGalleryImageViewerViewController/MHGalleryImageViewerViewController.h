@@ -39,6 +39,8 @@
 @property (nonatomic, assign)          BOOL showBottomBar; //default NO
 @property (nonatomic, assign)          BOOL showRightBarButtonShare; //default NO
 
+@property (nonatomic, copy) void (^shareContent)(UIImage *image, NSString *description);
+
 @property (nonatomic,getter = isUserScrolling)                   BOOL userScrolls;
 @property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;
 
