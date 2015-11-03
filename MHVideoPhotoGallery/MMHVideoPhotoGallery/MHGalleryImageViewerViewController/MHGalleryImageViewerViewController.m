@@ -383,7 +383,7 @@
         MHGalleryItem *item = [self itemForIndex:self.pageIndex];
         MHImageViewController *controller = [MHImageViewController imageViewControllerForMHMediaItem:item viewController:self];
         
-        _shareContent(controller.imageView.image, item.attributedString);
+        _shareContent(controller.imageView.image, item.attributedString.string);
         
         return;
     }
