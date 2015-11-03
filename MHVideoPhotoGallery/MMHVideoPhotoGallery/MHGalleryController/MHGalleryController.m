@@ -102,7 +102,8 @@
     if (galleryController.presentationStyle == MHGalleryViewModeImageViewerNavigationBarHidden) {
         galleryController.imageViewerViewController.hiddingToolBarAndNavigationBar = YES;
     }
-    [self presentViewController:galleryController animated:animated completion:completion];
+    
+    [self.view.window.rootViewController presentViewController:galleryController animated:animated completion:completion];
 }
 
 
