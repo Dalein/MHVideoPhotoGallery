@@ -319,6 +319,9 @@
             
             self.backView.alpha = 0;
         } completion:^(BOOL finished) {
+            
+            [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+            
             self.transitionImageView.hidden = NO;
             [self.cellImageSnapshot removeFromSuperview];
             [self.backView removeFromSuperview];
