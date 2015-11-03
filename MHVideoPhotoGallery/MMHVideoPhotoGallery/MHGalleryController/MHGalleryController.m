@@ -115,6 +115,8 @@
         imageViewer.dismissFromImageView = dismissImageView;
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NOTIFICATION_SET_PORTAIT_ORIENTATION" object:nil];
+    
     [self dismissViewControllerAnimated:flag completion:completion];
 }
 

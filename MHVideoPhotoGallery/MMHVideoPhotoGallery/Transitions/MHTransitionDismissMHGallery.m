@@ -255,8 +255,6 @@
             self.cellImageSnapshot.frame = CGRectMake(self.cellImageSnapshot.frame.origin.x-self.changedPoint.x, self.cellImageSnapshot.frame.origin.y-self.changedPoint.y, self.cellImageSnapshot.frame.size.width, self.cellImageSnapshot.frame.size.height);
         }
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NOTIFICATION_SET_PORTAIT_ORIENTATION" object:nil];
 }
 
 -(void)finishInteractiveTransition{

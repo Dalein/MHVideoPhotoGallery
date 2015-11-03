@@ -97,8 +97,6 @@
     if (galleryViewController.finishedCallback) {
         galleryViewController.finishedCallback(self.pageIndex,imageViewer.imageView.image,dismissTransiton,self.viewModeForBarStyle);
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NOTIFICATION_SET_PORTAIT_ORIENTATION" object:nil];
 }
 
 -(MHGalleryViewMode)viewModeForBarStyle{
