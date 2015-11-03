@@ -319,6 +319,8 @@
             
             self.backView.alpha = 0;
         } completion:^(BOOL finished) {
+            [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+            
             self.transitionImageView.hidden = NO;
             [self.cellImageSnapshot removeFromSuperview];
             [self.backView removeFromSuperview];
@@ -334,8 +336,6 @@
     [super cancelInteractiveTransition];
     
     [UIView animateWithDuration:0.3 animations:^{
-        [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
-        
         if (self.moviePlayer) {
             if (self.toTransform != self.orientationTransformBeforeDismiss) {
                 self.moviePlayer.view.center = CGPointMake(self.moviePlayer.view.bounds.size.height/2, self.moviePlayer.view.center.y);
