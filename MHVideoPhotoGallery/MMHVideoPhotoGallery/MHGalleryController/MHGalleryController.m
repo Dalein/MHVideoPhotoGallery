@@ -103,8 +103,6 @@
         galleryController.imageViewerViewController.hiddingToolBarAndNavigationBar = YES;
     }
     
-    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
-    
     [self.view.window.rootViewController presentViewController:galleryController animated:animated completion:completion];
 }
 
@@ -114,8 +112,6 @@
         MHGalleryImageViewerViewController *imageViewer = [(UINavigationController*)self viewControllers].lastObject;
         imageViewer.dismissFromImageView = dismissImageView;
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NOTIFICATION_SET_PORTAIT_ORIENTATION" object:nil];
     
     [self dismissViewControllerAnimated:flag completion:completion];
 }
