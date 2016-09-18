@@ -35,6 +35,11 @@
 @property (nonatomic, strong)          MHTransitionPresentMHGallery *interactivePresentationTranstion;
 @property (nonatomic, strong)          MHTransitionCustomization *transitionCustomization;
 @property (nonatomic,strong)           MHUICustomization *UICustomization;
+@property (nonatomic,strong)           NSString *navigationBarTitle;
+@property (nonatomic, assign)          BOOL showBottomBar; //default NO
+@property (nonatomic, assign)          BOOL showRightBarButtonShare; //default NO
+
+@property (nonatomic, copy) void (^shareContent)(UIImage *image, NSString *description);
 
 @property (nonatomic,getter = isUserScrolling)                   BOOL userScrolls;
 @property (nonatomic,getter = isHiddingToolBarAndNavigationBar)  BOOL hiddingToolBarAndNavigationBar;

@@ -469,12 +469,26 @@
     return cell;
 }
 -(void)updateTitle{
+    
+    NSString *titleNavigationBar = @"";
+    
     NSString *localizedTitle =  MHGalleryLocalizedString(@"shareview.title.select.singular");
-    self.title = [NSString stringWithFormat:localizedTitle, @(self.selectedRows.count)];
+    titleNavigationBar = [NSString stringWithFormat:localizedTitle, @(self.selectedRows.count)];
     if (self.selectedRows.count >1) {
         NSString *localizedTitle =  MHGalleryLocalizedString(@"shareview.title.select.plural");
-        self.title = [NSString stringWithFormat:localizedTitle, @(self.selectedRows.count)];
+        titleNavigationBar = [NSString stringWithFormat:localizedTitle, @(self.selectedRows.count)];
     }
+    
+    [self setTitleForNavigationBar:titleNavigationBar];
+}
+
+- (void)setTitleForNavigationBar:(NSString *)title {
+    self.navigationController.navigationBar.titleTextAttributes = [self attributesForText];
+    self.navigationItem.title = title;
+}
+
+- (NSDictionary *)attributesForText {
+    return [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17], NSFontAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil];
 }
 
 -(MHGalleryController*)gallerViewController{

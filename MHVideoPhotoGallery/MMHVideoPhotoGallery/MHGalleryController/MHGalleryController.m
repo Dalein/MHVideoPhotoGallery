@@ -102,7 +102,10 @@
     if (galleryController.presentationStyle == MHGalleryViewModeImageViewerNavigationBarHidden) {
         galleryController.imageViewerViewController.hiddingToolBarAndNavigationBar = YES;
     }
-    [self presentViewController:galleryController animated:animated completion:completion];
+    
+    [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+    
+    [self.view.window.rootViewController presentViewController:galleryController animated:animated completion:completion];
 }
 
 
@@ -111,6 +114,7 @@
         MHGalleryImageViewerViewController *imageViewer = [(UINavigationController*)self viewControllers].lastObject;
         imageViewer.dismissFromImageView = dismissImageView;
     }
+    
     [self dismissViewControllerAnimated:flag completion:completion];
 }
 

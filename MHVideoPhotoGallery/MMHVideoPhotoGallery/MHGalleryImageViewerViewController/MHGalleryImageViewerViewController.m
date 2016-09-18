@@ -14,6 +14,7 @@
 #import "Masonry.h"
 #import "MHGradientView.h"
 #import "MHBarButtonItem.h"
+#import "UIView+AccessibilityHelper.h"
 
 @implementation MHPinchGestureRecognizer
 @end
@@ -114,7 +115,11 @@
     self.transitionCustomization  = self.galleryViewController.transitionCustomization;
     
     if (!self.UICustomization.showOverView) {
+        
         self.navigationItem.hidesBackButton = YES;
+        
+        [self setButtonBack];
+        
     }else{
         if (self.galleryViewController.UICustomization.backButtonState == MHBackButtonStateWithoutBackArrow) {
             UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
@@ -126,11 +131,9 @@
         }
     }
     
-    UIBarButtonItem *doneBarButton =  [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                  target:self
-                                                                                  action:@selector(donePressed)];
-    
-    self.navigationItem.rightBarButtonItem = doneBarButton;
+    if (self.showRightBarButtonShare) {
+        [self setButtonShare];
+    }
     
     self.view.backgroundColor = [self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
     
@@ -179,6 +182,11 @@
         make.left.mas_equalTo(self.view.mas_left);
         make.right.mas_equalTo(self.view.mas_right);
         make.bottom.mas_equalTo(self.view.mas_bottom);
+        
+        if (!self.showBottomBar) {
+            self.toolbar.hidden = YES;
+            make.height.mas_equalTo(0);
+        }
     }];
 
     self.descriptionLabel = MHScrollViewLabel.new;
@@ -232,7 +240,6 @@
     
     [self updateToolBarForItem:item];
     
-    
     self.titleView = [UITextView.alloc initWithFrame:CGRectZero];
     [self configureTextView:self.titleView];
     self.titleView.text = item.titleString;
@@ -247,6 +254,33 @@
     [(UIGestureRecognizer*)[[self.pageViewController.view.subviews[0] gestureRecognizers] firstObject] setDelegate:self];
     
     [self updateTitleForIndex:self.pageIndex];
+}
+
+- (void)setButtonBack {
+    UIButton *button = [[UIButton alloc] init];
+    
+    [button setTitle:@"" forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"button_back"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(donePressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    [button.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
+    [button sizeToFit];
+    [button addAccessibilityWithType:UIAccessibilityTraitButton label:@"Назад" andHint:@"Идти назад"];
+    
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)setButtonShare {
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 40)];
+    
+    [button setImage:[UIImage imageNamed:@"icon_share"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"icon_share-selected"] forState:UIControlStateSelected];
+    [button setImage:[UIImage imageNamed:@"icon_share-selected"] forState:UIControlStateHighlighted];
+    [button addTarget:self action:@selector(sharePressed) forControlEvents:UIControlEventTouchUpInside];
+    [button addAccessibilityWithType:UIAccessibilityTraitButton label:@"Поделиться" andHint:@"Поделиться фотографией"];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
 -(void)setBarButtonItems{
@@ -346,6 +380,17 @@
 }
 
 -(void)sharePressed{
+    
+    if (self.showRightBarButtonShare && _shareContent) {
+        
+        MHGalleryItem *item = [self itemForIndex:self.pageIndex];
+        MHImageViewController *controller = [MHImageViewController imageViewControllerForMHMediaItem:item viewController:self];
+        
+        _shareContent(controller.imageView.image, item.attributedString.string);
+        
+        return;
+    }
+    
     if (self.UICustomization.showMHShareViewInsteadOfActivityViewController) {
         MHShareViewController *share = [MHShareViewController new];
         share.pageIndex = self.pageIndex;
@@ -444,10 +489,26 @@
 }
 
 -(void)updateTitleForIndex:(NSInteger)pageIndex{
+    
+    if (self.navigationBarTitle.length) {
+        
+        [self setTitleForNavigationBar:self.navigationBarTitle];
+        
+        return;
+    }
+    
     NSString *localizedString  = MHGalleryLocalizedString(@"imagedetail.title.current");
-    self.navigationItem.title = [NSString stringWithFormat:localizedString,@(pageIndex+1),@(self.numberOfGalleryItems)];
+    [self setTitleForNavigationBar:[NSString stringWithFormat:localizedString,@(pageIndex+1),@(self.numberOfGalleryItems)]];
 }
 
+- (void)setTitleForNavigationBar:(NSString *)title {
+    self.navigationController.navigationBar.titleTextAttributes = [self attributesForText];
+    self.navigationItem.title = title;
+}
+
+- (NSDictionary *)attributesForText {
+    return [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue-Medium" size:17], NSFontAttributeName, [UIColor whiteColor], NSForegroundColorAttributeName, nil];
+}
 
 -(void)pageViewController:(UIPageViewController *)pageViewController
        didFinishAnimating:(BOOL)finished
@@ -482,33 +543,34 @@
     }
 }
 
--(void)updateToolBarForItem:(MHGalleryItem*)item{
-    
-    MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                        target:self
-                                                                        action:nil];
-    flex.type = MHBarButtonItemTypeFlexible;
-
-    
-    MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                         target:self
-                                                                         action:nil];
-    fixed.width = 30;
-    fixed.type = MHBarButtonItemTypeFixed;
-    
-    [self enableOrDisbaleBarbButtons];
-    
-    
-    if (item.galleryType == MHGalleryTypeVideo) {
-        MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
-        if (imageViewController.isPlayingVideo) {
-            [self changeToPauseButton];
+- (void)updateToolBarForItem:(MHGalleryItem *)item {
+    if (self.showBottomBar) {
+        MHBarButtonItem *flex = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                            target:self
+                                                                            action:nil];
+        flex.type = MHBarButtonItemTypeFlexible;
+        
+        
+        MHBarButtonItem *fixed = [MHBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                             target:self
+                                                                             action:nil];
+        fixed.width = 30;
+        fixed.type = MHBarButtonItemTypeFixed;
+        
+        [self enableOrDisbaleBarbButtons];
+        
+        
+        if (item.galleryType == MHGalleryTypeVideo) {
+            MHImageViewController *imageViewController = self.pageViewController.viewControllers.firstObject;
+            if (imageViewController.isPlayingVideo) {
+                [self changeToPauseButton];
+            }else{
+                [self changeToPlayButton];
+            }
+            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
         }else{
-            [self changeToPlayButton];
+            [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
         }
-        [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.playStopBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
-    }else{
-        [self setToolbarItemsWithBarButtons:@[self.shareBarButton,flex,self.leftBarButton,flex,self.rightBarButton,flex,fixed] forGalleryItem:item];
     }
 }
 
