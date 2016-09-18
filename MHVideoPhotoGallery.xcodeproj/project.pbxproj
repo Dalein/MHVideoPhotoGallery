@@ -95,7 +95,7 @@
 		F5DBBF31187D584C00BEFE29 /* MHGalleryImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5DBBF30187D584C00BEFE29 /* MHGalleryImageViewerViewController.m */; };
 		F5EE8DA61890393D002E5734 /* testIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F5EE8DA51890393D002E5734 /* testIcon@2x.png */; };
 		F5F8DA2D18B6A6A100EB25F2 /* MHPresenterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F8DA2C18B6A6A100EB25F2 /* MHPresenterImageView.m */; };
-		FCFEFF931D8F249200137EE9 /* UIView+AccessibilityHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFEFF921D8F249200137EE9 /* UIView+AccessibilityHelper.m */; };
+		FCFEFF961D8F290900137EE9 /* UIView+AccessibilityHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFEFF951D8F290900137EE9 /* UIView+AccessibilityHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,8 +237,8 @@
 		F5EE8DA51890393D002E5734 /* testIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testIcon@2x.png"; sourceTree = "<group>"; };
 		F5F8DA2B18B6A6A100EB25F2 /* MHPresenterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHPresenterImageView.h; path = MMHVideoPhotoGallery/MHGalleryPresenterImageView/MHPresenterImageView.h; sourceTree = "<group>"; };
 		F5F8DA2C18B6A6A100EB25F2 /* MHPresenterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHPresenterImageView.m; path = MMHVideoPhotoGallery/MHGalleryPresenterImageView/MHPresenterImageView.m; sourceTree = "<group>"; };
-		FCFEFF911D8F249200137EE9 /* UIView+AccessibilityHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AccessibilityHelper.h"; sourceTree = "<group>"; };
-		FCFEFF921D8F249200137EE9 /* UIView+AccessibilityHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AccessibilityHelper.m"; sourceTree = "<group>"; };
+		FCFEFF941D8F290900137EE9 /* UIView+AccessibilityHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AccessibilityHelper.h"; sourceTree = "<group>"; };
+		FCFEFF951D8F290900137EE9 /* UIView+AccessibilityHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AccessibilityHelper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,13 +314,13 @@
 		F53F924917EB008100A9FE6A /* MHVideoPhotoGallery */ = {
 			isa = PBXGroup;
 			children = (
+				FCFEFF941D8F290900137EE9 /* UIView+AccessibilityHelper.h */,
+				FCFEFF951D8F290900137EE9 /* UIView+AccessibilityHelper.m */,
 				F5C52E9418C08700001E431E /* Gallery */,
 				F53F925217EB008100A9FE6A /* AppDelegate.h */,
 				F53F925317EB008100A9FE6A /* AppDelegate.m */,
 				F5B2EC7E17F9D68C000ADC51 /* ExampleViewControllerCollectionViewInTableView.h */,
 				F5B2EC7F17F9D68C000ADC51 /* ExampleViewControllerCollectionViewInTableView.m */,
-				FCFEFF911D8F249200137EE9 /* UIView+AccessibilityHelper.h */,
-				FCFEFF921D8F249200137EE9 /* UIView+AccessibilityHelper.m */,
 				F5B1AA8818ED82CE00FE4682 /* SubclassMHImageviewerViewController.h */,
 				F5B1AA8918ED82CE00FE4682 /* SubclassMHImageviewerViewController.m */,
 				F5D24FFB1885CDDD004D97CA /* ExampleViewControllerTableView.h */,
@@ -830,7 +830,7 @@
 				F59A9C801BDA3EBF00433A30 /* MHBarButtonItem.m in Sources */,
 				F5C52E8E18C0828E001E431E /* MHTransitionShowDetail.m in Sources */,
 				F55CB5BC18C5FE2E0039941E /* MHCustomization.m in Sources */,
-				FCFEFF931D8F249200137EE9 /* UIView+AccessibilityHelper.m in Sources */,
+				FCFEFF961D8F290900137EE9 /* UIView+AccessibilityHelper.m in Sources */,
 				F5C52E8C18C0828E001E431E /* MHTransitionDismissMHGallery.m in Sources */,
 				F5B2EC8017F9D68C000ADC51 /* ExampleViewControllerCollectionViewInTableView.m in Sources */,
 				F543E50B18EAB396008D7590 /* MHGalleryController.m in Sources */,
