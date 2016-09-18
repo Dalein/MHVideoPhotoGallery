@@ -14,6 +14,7 @@
 #import "Masonry.h"
 #import "MHGradientView.h"
 #import "MHBarButtonItem.h"
+#import "UIView+AccessibilityHelper.h"
 
 @implementation MHPinchGestureRecognizer
 @end
@@ -263,8 +264,9 @@
     [button addTarget:self action:@selector(donePressed) forControlEvents:UIControlEventTouchUpInside];
     
     [button.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
-    
     [button sizeToFit];
+    [button addAccessibilityWithType:UIAccessibilityTraitButton label:@"Назад" andHint:@"Идти назад"];
+    
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
@@ -276,6 +278,7 @@
     [button setImage:[UIImage imageNamed:@"icon_share-selected"] forState:UIControlStateSelected];
     [button setImage:[UIImage imageNamed:@"icon_share-selected"] forState:UIControlStateHighlighted];
     [button addTarget:self action:@selector(sharePressed) forControlEvents:UIControlEventTouchUpInside];
+    [button addAccessibilityWithType:UIAccessibilityTraitButton label:@"Поделиться" andHint:@"Поделиться фотографией"];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
