@@ -1130,7 +1130,8 @@
     }
     if (self.viewController.transitionCustomization.dismissWithScrollGestureOnFirstAndLastImage) {
         if ((self.pageIndex ==0 || self.pageIndex == self.viewController.numberOfGalleryItems -1)) {
-            if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewDelayedTouchesBeganGestureRecognizer")] ) {
+            
+            if ([gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class]) {
                 return YES;
             }
         }
@@ -1182,9 +1183,6 @@
     
     if (self.interactiveOverView || self.interactiveTransition) {
         return NO;
-    }
-    if ([otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewDelayedTouchesBeganGestureRecognizer")]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ) {
-        return YES;
     }
     if ([gestureRecognizer isKindOfClass:MHPinchGestureRecognizer.class]) {
         return YES;
