@@ -62,12 +62,26 @@ UIImage *MHDefaultImageForFrame(CGRect frame){
 }
 
 UIView *MHStatusBar(void){
-    NSString *key = [NSString.alloc initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72} length:9] encoding:NSASCIIStringEncoding];
-    id object = UIApplication.sharedApplication;
-    UIView *statusBar;
-    if ([object respondsToSelector:NSSelectorFromString(key)]) {
-        statusBar = [object valueForKey:key];
+    id statusBar;
+    
+    if (@available(iOS 13.0, *)) {
+            UIStatusBarManager *statusBarManager = [UIApplication sharedApplication].keyWindow.windowScene.statusBarManager;
+            if ([statusBarManager respondsToSelector:@selector(createLocalStatusBar)]) {
+                UIView *localStatusBar = [statusBarManager performSelector:@selector(createLocalStatusBar)];
+                if ([localStatusBar respondsToSelector:@selector(statusBar)]) {
+                    statusBar = [localStatusBar performSelector:@selector(statusBar)];
+                }
+            }
     }
+    else {
+        NSString *key = [NSString.alloc initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72} length:9] encoding:NSASCIIStringEncoding];
+        id object = UIApplication.sharedApplication;
+        UIView *statusBar;
+        if ([object respondsToSelector:NSSelectorFromString(key)]) {
+            statusBar = [object valueForKey:key];
+        }
+    }
+    
     return statusBar;
 }
 
