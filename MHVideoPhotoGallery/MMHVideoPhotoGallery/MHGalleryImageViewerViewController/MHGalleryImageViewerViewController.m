@@ -198,7 +198,7 @@
     [self.descriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.bottomSuperView.mas_left).with.offset(10);
         make.right.mas_equalTo(self.bottomSuperView.mas_right).with.offset(-10);
-        make.bottom.mas_equalTo(self.bottomSuperView.mas_bottom).with.offset(-5);
+        make.bottom.mas_equalTo(self.bottomSuperView.mas_bottom).with.offset(-(5 + [[UIApplication sharedApplication].keyWindow safeAreaInsets].bottom));
         make.top.mas_equalTo(self.bottomSuperView.mas_top).with.offset(20);
     }];
 
